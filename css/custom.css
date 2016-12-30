@@ -1,0 +1,17 @@
+/* Values part  */
+.values {
+  background-color: #C20F14;
+  background-size: cover;
+  border-radius: 15px;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  color: #fff;
+  margin-bottom: 2em;
+  vertical-align: middle;
+}
+
+.value-header {
+ text-align: center; 
+ font-weight: bold;
+ font-size: 1.2em;
+}
