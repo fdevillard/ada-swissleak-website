@@ -27,6 +27,10 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
 
+  <!-- JS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="js/plotly-latest.min.js"></script>
+
 </head>
 <body>
 
@@ -58,11 +62,48 @@
   <div class="container">
     <div class="row">
       <div class="column">
-        <h2>Rough data description </h2>
-        <p>TODO</p>
+        <h2>Timelapse</h2>
+        <div id="tester" class="u-max-full-width"></div>
       </div>
     </div>
   </div>
+
+<!-- Let's scripting
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script>
+Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2010_alcohol_consumption_by_country.csv',
+  function(err, rows){
+    function unpack(rows, key) {
+      return rows.map(function(row) { return row[key]; });
+    }
+
+    var data = [{
+      type: 'choropleth',
+      locationmode: 'country names',
+      locations: unpack(rows, 'location'),
+      z: unpack(rows, 'alcohol'),
+      text: unpack(rows,
+      'location'),
+      autocolorscale:
+      true
+    }];
+
+    var layout = {
+      title: 'Pure alcohol consumption among adults (age 15+) in 2010',
+      height: 800,
+      width: 800,
+      geo: {
+        projection: {
+          type: 'mercator'
+        }
+      }
+    };
+
+    Plotly.plot(tester, data, layout, {showLink: false});
+
+  });
+</script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
