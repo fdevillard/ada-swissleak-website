@@ -72,25 +72,24 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script>
-Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2010_alcohol_consumption_by_country.csv',
-  function(err, rows){
-    function unpack(rows, key) {
-      return rows.map(function(row) { return row[key]; });
-    }
+Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-website/master/data/number_closing_account_per_year_bis.json',
+  function(err, data_json){
 
+    yearly_data = data_json[2015]
+
+    console.log(yearly_data)
+    
     var data = [{
       type: 'choropleth',
-      locationmode: 'country names',
-      locations: unpack(rows, 'location'),
-      z: unpack(rows, 'alcohol'),
-      text: unpack(rows,
-      'location'),
-      autocolorscale:
-      true
+      //locationmode: 'ISO-3',
+      locations: yearly_data['locations'],
+      z: yearly_data['values'],
+      text: yearly_data['locations'],
+      autocolorscale: true
     }];
 
     var layout = {
-      title: 'Pure alcohol consumption among adults (age 15+) in 2010',
+      title: 'Number of closed accounts',
       height: 800,
       width: 800,
       geo: {
@@ -101,6 +100,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2010_alc
     };
 
     Plotly.plot(tester, data, layout, {showLink: false});
+    
 
   });
 </script>
