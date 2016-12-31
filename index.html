@@ -30,6 +30,7 @@
   <!-- JS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="js/plotly-latest.min.js"></script>
+  <script src="http://www.w3schools.com/lib/w3data.js"></script>
 
 </head>
 <body>
@@ -44,6 +45,11 @@
         about its completeness, correctness or up-to-date nature is given.</p>
         <p> No liability is accepted for damage or loss incurred from any 
         information obtained in this website</p>
+        <p>Furthermore, there is no direct link between an occurence in the
+        Panama Papers and illegal activity. Any name or personal informations
+        which might arise were obtained publicly. This website has the only
+        purpose to present certain results obtained by looking at the Panama
+        Papers data.</p>
       </div>
       <div class="one-third column" style="margin-top:10%">
         <img src="images/ADA-logo.png" class="u-max-full-width" />
@@ -60,6 +66,11 @@
   </div>
 
   <div class="container">
+    <h2>The data</h2>
+    <p>The data were obtained from the <a
+       href="https://panamapapers.icij.org">International Consortium of
+       Investigative Journalists</a> (ICIJ). There were all scraped from
+     different leaks related to Mossack Fonseca.</p>
     <h2>Timelapse</h2>
     <div class="row">
       <p>This plot gives inside about the different activities around the Panama
@@ -85,6 +96,21 @@
       <div class="column">
         <div id="tester" class="u-max-full-width"></div>
       </div>
+    </div>
+    <div class="row">
+      <h2>Closer look to cantons</h2>
+      <p>Geneva is clearly the most frequent canton (pay attention to the
+      log-scale). Surpisingly Lausanne comes second, and Zurich third.</p>
+      <img class="u-max-full-width"
+      src="data/entities_repartition_per_canton.png" />
+    </div>
+    <div class="row">
+      <h2>Precise positions</h2>
+      <p>Let see over a map where these entities are really located. Once again,
+      being on the data isn't directly related to illegal actions. Furthermore,
+      no waranties about the correctness or the up-to-date nature of the data is
+      given.</p>
+      <div w3-include-html="data/locations.html" class="u-max-full-width"></div>
     </div>
   </div>
 
@@ -192,6 +218,10 @@ Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-websi
     
 
   });
+</script>
+
+<script>
+w3IncludeHTML();
 </script>
 
 <!-- End Document
