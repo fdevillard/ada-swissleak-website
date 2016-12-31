@@ -63,6 +63,10 @@
     <div class="row">
       <div class="column">
         <h2>Timelapse</h2>
+        <button class="primary-button" onclick="next_year()">Next Year</button>
+        <button class="primary-button" onclick="set_now()">Still active</button>
+        <button class="primary-button" onclick="animate()">Animate</button>
+        <p id="current_year"><p>
         <div id="tester" class="u-max-full-width"></div>
       </div>
     </div>
@@ -72,12 +76,82 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script>
-Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-website/master/data/number_closing_account_per_year_bis.json',
+
+var root_data  = undefined;
+var plot_div = document.getElementById('tester');
+var all_years = undefined;
+var current_year = "2015";
+var timer = undefined;
+
+function set_now() {
+  update_with_year("-1");
+}
+
+function animate() {
+  if (typeof timer !== "undefined") {
+    clearInterval(timer);
+  }
+
+  function handler() {
+    current_year_idx = all_years.indexOf(current_year);
+
+    if(current_year_idx+1 == all_years.length) {
+      clearInterval(timer);
+      timer = undefined;
+    } else {
+      next_year();   
+    }
+  }
+
+  update_with_year(all_years[0]);
+  timer = setInterval(handler, 600);
+}
+
+function update_year_label() {
+  var text_value = undefined;
+  var current_year_as_int = parseInt(current_year);
+  console.log(current_year_as_int);
+  if (parseInt(current_year) < 0)
+    text_value = "Still active";
+  else 
+    text_value = current_year
+  document.getElementById('current_year').innerHTML = text_value;
+}
+
+function update_with_year(new_year) {
+  current_year = new_year;
+  update_year_label();
+  data = plot_div.data[0];
+  new_data = root_data[new_year];
+
+  data.locations = new_data.locations;
+  data.text = new_data.locations;
+  data.z = new_data.values;
+
+  Plotly.redraw(plot_div);
+}
+
+function next_year() {
+  var index = all_years.indexOf(current_year)
+  if(index < 0) {
+    throw "Illegal State: "+index+" ("+current_year+")";
+  }
+
+  var next_index = (index + 1) % all_years.length;
+  var new_year = all_years[next_index];
+  
+  update_with_year(new_year);
+  console.log("Updated map, year is now: "+new_year)
+} 
+
+Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-website/master/data/number_closing_account_per_year_bis2.json',
   function(err, data_json){
+    root_data = data_json;
+    all_years = Object.keys(data_json);
 
-    yearly_data = data_json[2015]
+    yearly_data = data_json[current_year];
 
-    console.log(yearly_data)
+    console.log(yearly_data);
     
     var data = [{
       type: 'choropleth',
