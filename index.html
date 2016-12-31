@@ -60,13 +60,29 @@
   </div>
 
   <div class="container">
+    <h2>Timelapse</h2>
+    <div class="row">
+      <p>This plot gives inside about the different activities around the Panama
+      Papers.</p>
+      <p>The year means how many entities became invalid, while the <em>still
+        active</em> means entities which were still active late 2015.</p>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <button class="primary-button" onclick="next_year()">Next Year</button>
+      </div>
+      <div class="three columns">
+        <button class="primary-button" onclick="set_now()">Still active</button>
+      </div>
+      <div class="three columns">
+        <button class="primary-button" onclick="animate()">Animate</button>
+      </div>
+      <div class="three columns">
+        <p id="current_year"><p>
+      </div>
+    </div>
     <div class="row">
       <div class="column">
-        <h2>Timelapse</h2>
-        <button class="primary-button" onclick="next_year()">Next Year</button>
-        <button class="primary-button" onclick="set_now()">Still active</button>
-        <button class="primary-button" onclick="animate()">Animate</button>
-        <p id="current_year"><p>
         <div id="tester" class="u-max-full-width"></div>
       </div>
     </div>
@@ -163,7 +179,6 @@ Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-websi
     }];
 
     var layout = {
-      title: 'Number of closed accounts',
       height: 800,
       width: 800,
       geo: {
