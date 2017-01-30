@@ -13,15 +13,10 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+  <!-- <link rel="stylesheet" href="css/custom.css"> -->
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,40 +24,105 @@
 
   <!-- JS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="js/scrollreveal.min.js"></script>
   <script src="http://www.w3schools.com/lib/w3data.js"></script>
-
 </head>
 <body>
 
+
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row">
-      <div class="two-thirds column" style="margin-top:10%">
-        <h1>SwissLeak project</h1>
-        <p>Published information has been collected carefully but no guarantee
-        about its completeness, correctness or up-to-date nature is given.</p>
-        <p> No liability is accepted for damage or loss incurred from any 
-        information obtained in this website</p>
-        <p>Furthermore, there is no direct link between an occurence in the
-        Panama Papers and illegal activity. Any name or personal informations
-        which might arise were obtained publicly. This website has the only
-        purpose to present certain results obtained by looking at the Panama
-        Papers data.</p>
+  <div class="container-fluid full-header">
+    <div class="fill container">
+      <div class="jumbotron">
+              <div class="row text-center">
+          <div class="col-md-4"><small>Lionel Fleury</small></div>
+          <div class="col-md-4"><small>Semion Sidorenko</small></div>
+          <div class="col-md-4"><small>Florent Devillard</small></div>
       </div>
-      <div class="one-third column" style="margin-top:10%">
-        <img src="images/ADA-logo.png" class="u-max-full-width" />
+        <h1>Switzerland and the Offshore Leaks </h1>
+        <p class="lead">Using the <a href="https://offshoreleaks.icij.org/" target="_blank">ICIJ Offshore Leaks Database</a>, this project aims to look into the connections between Switzerland and a small part of the offshore banking world.</p>
       </div>
     </div>
   </div>
+    <div class="navbar navbar-fixed-left">
+  <ul class="nav navbar-nav">
+   <li><a href="#">The ICIJ data</a></li>
+   <li><a href="#">Enriching the data</a></li>
+   <li><a href="#">Blah</a></li>
+   <li><a href="#">Truc</a></li>
+  </ul>
+  </div>
+  <img class="topcorner" src="images/ADA-logo.png"/>
+  <div class="container">
+    <div class="header">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-  <div class="container values">
-    <div class="row">
-      <div class="one-third column value-header">Lionel Fleury</div>
-      <div class="one-third column value-header">Semion Sidorenko</div>
-      <div class="one-third column value-header">Florent Devillard</div>
+
+
+        <p class="very-small disclaimer text-uppercase">
+          Published information has been collected carefully but no guarantee
+          about its completeness, correctness or up-to-date nature is given. There are legitimate uses for offshore companies and trusts. We do not intend to suggest or imply that any persons, companies or other entities included in the ICIJ Offshore Leaks Database have broken the law or otherwise acted improperly. Many people and entities have the same or similar names.</p>
+          <!-- <h1>The ICIJ Data</h1> -->
+          <p class="drop-cap">The data we are working with comes from the <a href="https://offshoreleaks.icij.org/" target="_blank">ICIJ</a>. It contains information on almost 500,000 offshore entities that are part of the Panama Papers, the Offshore Leaks and the Bahamas Leaks investigations. The data covers nearly 40 years up to early 2016 and links to people and companies in more than 200 countries and territories. In this report, we will focus on the entities in this database that are either located in Switzerland, or linked to swiss politicians.</p>
+          <p>The dump is searchable online, but for our project we downloaded a self-contained database from the ICIJ. The database is given as a Neo4j graph database, where each entity is a node and relationships are edges. This makes it very practical to query and visualize the data dump.</p>
+          <figure>
+          <img src="images/neo4j_query.png" class="img-responsive" alt="Responsive image">
+          <figcaption>An example Neo4j query.</figcaption>
+          </figure>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+
+
+
+
+
+
+        </div>
+      </div>
     </div>
+  </div>
+<!--
+  <div class="container values">
+
   </div>
 
   <div class="container">
@@ -127,7 +187,7 @@
       guaranteed. Furthermore, in no way being on the map is linked with illegal
       activities.</p>
     </div>
-  </div>
+  </div> -->
 
 <!-- Let's scripting
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -237,6 +297,33 @@ Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-websi
 
 <script>
 w3IncludeHTML();
+
+window.sr = ScrollReveal({
+  scale: 1.0,
+   duration: 1000,
+  // delay: 1000
+  // top: window.height
+});
+$('.navbar').affix({
+      offset: {
+        top: $('header').height()
+      }
+}); 
+sr.reveal('body>.container img');
+
+$(window).scroll(function () {
+    var scrollTop = $(window).scrollTop();
+    var height = $(window).height();
+
+    $('.full-header, .disclaimer').css({
+        'opacity': ((height - scrollTop) / height)
+    }); 
+    $('.navbar').css({
+        'opacity': 1 - ((height - scrollTop) / height)
+    }); 
+});
+
+// sr.reveal('body>.container');
 </script>
 
 <!-- End Document

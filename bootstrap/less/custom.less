@@ -1,0 +1,88 @@
+@font-size-base:          19px;
+@line-height-base: 1.6842105263157894;
+@font-family-base:        @font-family-sans-serif;
+
+body>div.container p {
+	font-family: @font-family-serif;
+
+	&.drop-cap:first-letter {
+		margin: 0 7px -5px 0;
+		font-size: 335%;
+		line-height: 100%;
+		float: left;
+		font-family: @font-family-sans-serif;
+		font-weight: bold;
+      }
+}
+
+.navbar-fixed-left {
+  width: 200px;
+  position: fixed;
+  border-radius: 0;
+  height: 50%;
+  z-index: 42;
+  top: 33%;
+  opacity: 0;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 199px;
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+}
+
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 140px;
+}
+
+ .topcorner{
+   position:fixed;
+   top:0;
+   right:0;
+   margin: 10px;
+   height: @font-size-h1;
+   z-index: 42;
+  }
+
+.full-header {
+	height:100%;
+	background: linear-gradient(
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ), url(../../../images/head.jpg);
+    background-position: center 15%;
+    background-size: cover;
+	color: @body-bg;
+}
+
+.fill {
+    height:100%;
+    min-height:100%;
+}
+html, body {
+	height: 100%;
+}
+
+.very-small {
+  font-size: floor((65% * @font-size-small / @font-size-base));
+}
+
+p.disclaimer {
+	color: lighten(@text-color, 15%);
+	margin-top: 5em;
+	margin-bottom: 5em;
+	font-family: @font-family-sans-serif !important;
+	font-weight: 300;
+	line-height: 1.7;
+	letter-spacing: 0.13em;
+}
+
+figcaption {
+	text-align: center;
+	font-size: floor((75% * @font-size-small / @font-size-base));
+}
