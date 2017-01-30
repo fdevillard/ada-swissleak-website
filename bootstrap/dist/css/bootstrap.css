@@ -6813,4 +6813,7 @@ figcaption {
   line-height: 1.5;
   border-radius: 3px;
 }
+img.begin-section {
+  margin-top: 32px;
+}
 /*# sourceMappingURL=bootstrap.css.map */

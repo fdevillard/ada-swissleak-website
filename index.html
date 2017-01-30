@@ -50,10 +50,10 @@
   </div>
     <div class="navbar navbar-fixed-left">
   <ul class="nav navbar-nav">
-   <li><a href="#">The ICIJ dump</a></li>
-   <li><a href="#">Our data pipeline</a></li>
-   <li><a href="#">Blah</a></li>
-   <li><a href="#">Truc</a></li>
+   <li><a href="#icij">The ICIJ dump</a></li>
+   <li><a href="#pipeline">Our data pipeline</a></li>
+   <li><a href="#results">Results</a></li>
+   <li><a href="#conclusion">Conclusion</a></li>
   </ul>
   </div>
   <img class="topcorner" src="images/ADA-logo.png"/>
@@ -67,7 +67,7 @@
           Published information has been collected carefully but no guarantee
           about its completeness, correctness or up-to-date nature is given. There are legitimate uses for offshore companies and trusts. We do not intend to suggest or imply that any persons, companies or other entities included in the ICIJ Offshore Leaks Database have broken the law or otherwise acted improperly. Many people and entities have the same or similar names.</p>
           <!-- <h1>The ICIJ Data</h1> -->
-          <p class="drop-cap">The data we are working with comes from the <a href="https://offshoreleaks.icij.org/" target="_blank">ICIJ</a>. It contains information on almost 500,000 offshore entities that are part of the Panama Papers, the Offshore Leaks and the Bahamas Leaks investigations. The data covers nearly 40 years up to early 2016 and links to people and companies in more than 200 countries and territories. In this report, we will focus on the entities in this database that are either located in Switzerland, or linked to swiss politicians.</p>
+          <p class="drop-cap"><a name="icij"></a>The data we are working with comes from the <a href="https://offshoreleaks.icij.org/" target="_blank">ICIJ</a>. It contains information on almost 500,000 offshore entities that are part of the Panama Papers, the Offshore Leaks and the Bahamas Leaks investigations. The data covers nearly 40 years up to early 2016 and links to people and companies in more than 200 countries and territories. In this report, we will focus on the entities in this database that are either located in Switzerland, or linked to swiss politicians.</p>
           <figure>
           <img src="images/neo4j_query.png" class="img-responsive" alt="Responsive image">
           <figcaption>An example Neo4j query.</figcaption>
@@ -81,7 +81,7 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <p>Taking into account its small population, Switzerland is largely over-represented in the Offshore leaks. As we will see later, it is mostly because there is a lot of law firms and fiduciaries based in Switzerland who acts as intermediaries for foreign clients.</p>
+            <p>Taking into account its small population, Switzerland is largely over-represented in the Offshore leaks. As we will see later, it is mostly because there are a lot of law firms and fiduciaries based in Switzerland who acts as intermediaries for foreign clients.</p>
             <p>
             
           </p>
@@ -111,69 +111,54 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-                    <p>Although no swiss politicians has been (yet) accused of hiding money offshore, one politician from Geneva's cantonal parliament has been accused of helping clients of his law firm to hide money offshore.</p>
+            <p>Although no swiss politicians has been (yet) accused of hiding money offshore, one politician from Geneva's cantonal parliament has been accused of helping clients of his law firm to hide money offshore.</p>
 
-                    <h2>The pipeline</h2>
-                    <p>
-                      For our investigation, we used several sources of data to cross-reference with the ICIJ dump.
-                    </p>
-                    <figure>
-                    <img src="images/pipeline.png" class="img-responsive" alt="Responsive image">
-                    <figcaption>The data pipeline.</figcaption>
-                    </figure>
-                    <p>The first step was to scrape the names of all the members of the swiss federal parliament, as well as their registered financial interests. We then scraped members and interests of Geneva's cantonal parliament as well. We could not scrape Vaud or Zurich parliamentary interests as those were given as a scan of a handwritten document.</p>
-                    <p>However, as we can see in the following graph, more than 90 % of the entities are located in the canton of Geneva, so we did not look into scraping other cantons.</p>
-                    <div id="per-canton"></div>
+            <h2><a name="pipeline">The pipeline</a></h2>
+            <p>
+              For our investigation, we used several sources of data to cross-reference with the ICIJ dump.
+            </p>
+            <figure>
+            <img src="images/pipeline.png" class="img-responsive" alt="Responsive image">
+            <figcaption>The data pipeline.</figcaption>
+            </figure>
+            <p>The first step was to scrape the names of all the members of the swiss federal parliament, as well as their registered financial interests. We then scraped members and interests of Geneva's cantonal parliament as well. We could not scrape Vaud or Zurich parliamentary interests as those were given as a scan of a handwritten document.</p>
+            <p>However, as we can see in the following graph, more than 90 % of the entities are located in the canton of Geneva, so we did not look into scraping other cantons.</p>
+            <figure>
+            <div id="per-canton"></div>
+            <figcaption>Repartition of entities per canton in the ICIJ dump.</figcaption>
+            </figure>
+            <p>After scraping the names and financial interests parliament members, the next step was to scrape the swiss federal commercial registry. This was done to augment the data around parliamentary financial interests, by fetching data such as the name of people on the board of each company declared as a financial interest.</p>
+            <p>Unfortunately only the search engine is federally managed. Its results link to each canton's own commercial registry, and not all cantons use the same software for their registry. To get round this issue, we had to write  different scrapers for different cantons in addition to the search engine scraper.</p>
+            <figure>
+            <img src="images/zefix.png" class="img-responsive" alt="Responsive image">
+            <figcaption>The swiss commercial registry search engine.</figcaption>
+            </figure>
+            <p>Once we have gathered this list of politicians name, of companies in which politicians have financial interests, and of members of the boards of those companies, we searched those names into the ICIJ dump. This was done by loading the raw CSV data from the dump into a Pandas <i>DataFrame</i>, and matching a regular expression with the name against the row. Out of this we would get a list of names and companies, which then have to be manually verified one by one.</p>
+            <figure>
+            <img src="images/poggia_portrait.png" class="img-responsive begin-section" alt="A supposedly anti-establishment politician">
+            <figcaption>Mauro Poggia, member of the swiss National Council.</figcaption>
+            </figure>
+            <h2><a name="results">Results</a></h2>
+            <p>When we cross-referenced parliament members with the ICIJ dump, we found the name of <b>Mauro Poggia</b>. Mauro Poggia is a member of Geneva's Citizen Movement (MCG), and prior to our work he had already been contacted by some swiss newspapers about the appearance of his name in the Panama Papers.</p>
+            <p>He <a href="https://www.letemps.ch/suisse/2016/05/11/panama-papers-conseiller-mauro-poggia-se-defend" target="_blank">answered</a> that what he was doing was perfectly legal, as he was only managing the offshore companies on the behalf of his clients whose identites were known to the bank. It is however humorous to see that a politician from a supposedly anti-establishment party helps his rich clients to hide money offshore.</p>
+            <figure>
+            <img src="images/poggia.png" class="img-responsive begin-section" alt="A supposedly anti-establishment politician">
+            <figcaption>Mauro Poggia's network in the ICIJ dump.</figcaption>
+            </figure>
+            <p>After manual verification, all the other results from the cross-reference were likely homonyms, or at least no clear links could be drawn between them and politicians.</p>
+            <p>We did however make some manual searches in Neo4j, for example by querying all entities whose address contained "Lausanne" or neighboring towns. We did find a lot of law firms and fiduciaries acting as intermediaries for foreign clients, but the most puzzling result was a connection between <b>Tarek Obaid</b>, a Saudi banker implicated in the <a href="https://www.theguardian.com/world/2016/jul/28/1mdb-inside-story-worlds-biggest-financial-scandal-malaysia" target="_blank">1MDB scandal</a> and <b>Stéphane Pictet</b>, a swiss entrepreneur and business angel. The links between those two is still unclear as we could only find <a href="http://www.millischer.ch/handelszeitung/die-genfer-connection/" target="_blank">one article</a> briefly mentioning their relationship.</p>
+            <figure>
+            <img src="images/pictet_obaid.png" class="img-responsive begin-section" alt="A supposedly anti-establishment politician">
+            <figcaption>Links between protagonists of the 1MDB scandal and Stéphane Pictet.</figcaption>
+            </figure>
+            <h2><a name="conclusion">Conclusion</a></h2>
+            Unsurprisingly, we did not find any links between swiss politicians and offshore activity that had not been already reported on by newspapers in Switzerland. Does that mean that all swiss politicians are honest ? Probably not. In addition to the technical difficulties involved in gathering data about politicians financial interests, we must keep in mind that the Swiss Leaks, the Bahamas Leaks, and the Panama Papers are only a tiny fraction of the maze of offshore finance.
           </div>
         </div>
     </div>
   </div>
-<!--
-  <div class="container values">
 
-  </div>  
-  <div class="container">
-    <h2>Timelapse</h2>
-    <div class="row">
-      <p>This plot gives inside about the different activities around the Panama
-      Papers.</p>
-      <p>The year means how many entities became invalid, while the <em>still
-        active</em> means entities which were still active late 2015.</p>
-    </div>
-    <div class="row">
-      <div class="three columns">
-        <button class="primary-button" onclick="next_year()">Next Year</button>
-      </div>
-      <div class="three columns">
-        <button class="primary-button" onclick="set_now()">Still active</button>
-      </div>
-      <div class="three columns">
-        <button class="primary-button" onclick="animate()">Animate</button>
-      </div>
-      <div class="three columns">
-        <p id="current_year"><p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">
-        <div id="tester" class="u-max-full-width"></div>
-      </div>
-    </div>
-    <div class="row">
-      <h2>Closer look to cantons</h2>
-      <p>Geneva is clearly the most frequent canton (pay attention to the
-      log-scale). Surpisingly Lausanne comes second, and Zurich third.</p>
-      <img class="u-max-full-width"
-      src="data/entities_repartition_per_canton.png" />
-      <p>You can see more precise information <a
-        href="data/locations.html">here</a>. No
-      correctness nor up-to-date nature of the information is
-      guaranteed. Furthermore, in no way being on the map is linked with illegal
-      activities.</p>
-    </div>
-  </div> -->
-
-<!-- Let's scripting
+<!-- Code
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script>
@@ -323,18 +308,6 @@ Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-websi
         l: 0,
         pad: 4
       },
-    //   xaxis: {
-    //      tickfont: {
-    //   size: 8,
-    //   color: 'black'
-    // },
-    //     // type: 'log',
-    //     // autorange: true
-    //   },
-    //   yaxis: {
-    //     // type: 'log',
-    //     // autorange: true
-    //   }
     };
 
     Plotly.plot("per-canton", canton_data, canton_layout);
@@ -356,7 +329,7 @@ $('.navbar').affix({
         top: $('header').height()
       }
 }); 
-sr.reveal('body>.container img');
+sr.reveal('body>.container img, figure>div');
 
 $(window).scroll(function () {
     var scrollTop = $(window).scrollTop();
