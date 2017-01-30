@@ -1,9 +1,28 @@
 @font-size-base:          19px;
 @line-height-base: 1.6842105263157894;
 @font-family-base:        @font-family-sans-serif;
+@brand-primary: darken(#FF0000, 15%);
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 1.50)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.35)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.15)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+@article-font-family: @font-family-serif;
+
+body>div.container h1,
+body>div.container h2,
+body>div.container h3,
+body>div.container h4,
+body>div.container h5,
+body>div.container h6 {
+	font-family: @article-font-family;
+}
 
 body>div.container p {
-	font-family: @font-family-serif;
+	font-family: @article-font-family;
 
 	&.drop-cap:first-letter {
 		margin: 0 7px -5px 0;
@@ -23,6 +42,7 @@ body>div.container p {
   z-index: 42;
   top: 33%;
   opacity: 0;
+
 }
 
 .navbar-fixed-left .navbar-nav > li {
@@ -52,8 +72,8 @@ body>div.container p {
 .full-header {
 	height:100%;
 	background: linear-gradient(
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
     ), url(../../../images/head.jpg);
     background-position: center 15%;
     background-size: cover;
@@ -86,4 +106,17 @@ figcaption {
 	text-align: center;
 	font-size: floor((75% * @font-size-small / @font-size-base));
 	margin: 1em 0 2em;
+}
+
+#tester {
+	// margin: -2em auto 0 auto;
+}
+
+.tester-buttons>div>* {
+	margin-top: 0;
+	margin-bottom: 3em;
+}
+
+.btn-xs {
+  .button-size(@padding-xs-vertical; @padding-xs-horizontal; (@font-size-small * 0.75); @line-height-small; @btn-border-radius-small);
 }

@@ -50,15 +50,14 @@
   </div>
     <div class="navbar navbar-fixed-left">
   <ul class="nav navbar-nav">
-   <li><a href="#">The ICIJ data</a></li>
-   <li><a href="#">Enriching the data</a></li>
+   <li><a href="#">The ICIJ dump</a></li>
+   <li><a href="#">Our data pipeline</a></li>
    <li><a href="#">Blah</a></li>
    <li><a href="#">Truc</a></li>
   </ul>
   </div>
   <img class="topcorner" src="images/ADA-logo.png"/>
   <div class="container">
-    <div class="header">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
@@ -78,80 +77,61 @@
           <img src="images/neo4j_results.png" class="img-responsive" alt="Responsive image">
           <figcaption>Visualization of results for the above query.</figcaption>
           </figure>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-
-
-
-
-
-
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <p>Taking into account its small population, Switzerland is largely over-represented in the Offshore leaks. As we will see later, it is mostly because there is a lot of law firms and fiduciaries based in Switzerland who acts as intermediaries for foreign clients.</p>
+            <p>
+            
+          </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <figure>
+              <div id="tester" class="u-max-full-width"></div>
+              <figcaption>Click on animate to watch a timelapse of the amount of entities stricken off per country.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="row text-center tester-buttons">
+          <div class="col-md-1 col-md-offset-4">
+            <button class="btn btn-primary btn-xs" onclick="next_year()">Next Year</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-xs" onclick="set_now()">Still active</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-xs" onclick="animate()">Animate</button>
+          </div>
+          <div class="col-md-1">
+            <p id="current_year"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+                    <p>Although no swiss politicians has been (yet) accused of hiding money offshore, one politician from Geneva's cantonal parliament has been accused of helping clients of his law firm to hide money offshore.</p>
+
+                    <h2>The pipeline</h2>
+                    <p>
+                      For our investigation, we used several sources of data to cross-reference with the ICIJ dump.
+                    </p>
+                    <figure>
+                    <img src="images/pipeline.png" class="img-responsive" alt="Responsive image">
+                    <figcaption>The data pipeline.</figcaption>
+                    </figure>
+                    <p>The first step was to scrape the names of all the members of the swiss federal parliament, as well as their registered financial interests. We then scraped members and interests of Geneva's cantonal parliament as well. We could not scrape Vaud or Zurich parliamentary interests as those were given as a scan of a handwritten document.</p>
+                    <p>However, as we can see in the following graph, more than 90 % of the entities are located in the canton of Geneva, so we did not look into scraping other cantons.</p>
+                    <div id="per-canton"></div>
+          </div>
+        </div>
     </div>
   </div>
 <!--
   <div class="container values">
 
-  </div>
-
-  <div class="container">
-    <h2>The data</h2>
-    <p>The data were obtained from the <a
-       href="https://panamapapers.icij.org">International Consortium of
-       Investigative Journalists</a> (ICIJ). There were all scraped from
-     different leaks related to Mossack Fonseca.</p>
-  </div>
-  <div class="container values">
-    <div class="row">
-      <div class="one-third column">
-        <h2 class="value-magnifier">11,5 million</h2>
-        <h5 class="value-header">Leaked documents</h5>
-      </div>
-      <div class="one-third column">
-        <h2 class="value-magnifier">214,000</h2>
-        <h5 class="value-header">Offshore companies</h5>
-      </div>
-      <div class="one-third column">
-        <h2 class="value-magnifier">38,000</h2>
-        <h5 class="value-header">Entities in Switzerland</h5>
-      </div>
-    </div>
-  </div>
+  </div>  
   <div class="container">
     <h2>Timelapse</h2>
     <div class="row">
@@ -284,18 +264,80 @@ Plotly.d3.json('https://raw.githubusercontent.com/fdevillard/ada-swissleak-websi
     }];
 
     var layout = {
-      height: 800,
-      width: 800,
-      geo: {
-        projection: {
-          type: 'mercator'
-        }
-      }
+      height: 600,
+      autosize: true,
+      margin: {
+        b: 20,
+        t: 20,
+        r: 0,
+        l: 0,
+        pad: 4
+      },
+      // width: "100%",
+      geo:{
+              showframe: false,
+              // showcoastlines: false,
+              projection:{
+                  type: 'mercator',
+                  scale: 1.2,
+                  rotation: {
+                    // lat: 20
+                  },
+              }
+          }
     };
 
     Plotly.plot(tester, data, layout, {showLink: false});
-    
+  });
+    // Plot per-canton
+  $(function() {
+    // Handler for .ready() called.
+    canton_raw_data = {"GE":30780,"VD":2302,"ZH":1783,"TI":636,"LU":615,"ZG":578,"NE":367,"GR":240,"FR":195,"BS":172,"SG":149,"VS":92,"AG":53,"BE":27,"SZ":23,"NW":10,"SH":2,"BL":2,"UR":0,"OW":0,"GL":0,"SO":0,"AR":0,"AI":0,"TG":0,"JU":0};
 
+    var canton_data = [
+      {
+        labels: [],
+        values: [],
+        type: 'pie',
+        marker: {
+          colors: ['rgb(196, 9, 3)'],
+        },
+        textinfo: 'none'
+      }
+    ];
+
+    for(var key in canton_raw_data) {
+      if(canton_raw_data.hasOwnProperty(key)) {
+        canton_data[0].labels.push(key);
+        canton_data[0].values.push(canton_raw_data[key]);
+      }
+    }
+
+    var canton_layout = {
+       height: 300,
+      autosize: true,
+      margin: {
+        b: 20,
+        t: 20,
+        r: 0,
+        l: 0,
+        pad: 4
+      },
+    //   xaxis: {
+    //      tickfont: {
+    //   size: 8,
+    //   color: 'black'
+    // },
+    //     // type: 'log',
+    //     // autorange: true
+    //   },
+    //   yaxis: {
+    //     // type: 'log',
+    //     // autorange: true
+    //   }
+    };
+
+    Plotly.plot("per-canton", canton_data, canton_layout);
   });
 </script>
 
